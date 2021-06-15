@@ -25,4 +25,14 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: "5@a.com", password_digest: "123456", role: 9)
     assert_not user.valid?
   end
+
+  test "valid: user with valid password" do
+    user = User.new(email: "6@a.com", password: "123456", role: 1)
+    assert user.valid?
+  end
+
+  test "invalid: user with invalid password" do
+    user = User.new(email: "7@a.com", password: "", role: 1)
+    assert_not user.valid?
+  end
 end
