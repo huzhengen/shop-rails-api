@@ -14,8 +14,8 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
-  def _to_i(params, default_no = 1)
-    params && params&.to_i > 0 ? params&.to_i : default_no.to_i
+  def _to_i(page, default_no = 1)
+    page && page.to_i > 0 ? page.to_i : default_no.to_i
   end
 
   def set_page
