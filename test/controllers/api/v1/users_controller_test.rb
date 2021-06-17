@@ -32,4 +32,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
           as: :json
     assert_response 202
   end
+
+  test "destroy_success: should destroy one user" do
+    assert_difference('User.count', -1) do
+      delete api_v1_user_path(@user), as: :json
+    end
+    assert_response 204
+  end
 end
