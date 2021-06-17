@@ -16,4 +16,13 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
     assert_equal @user.email, json_response['data']['email']
   end
+
+  test "create_success: should create one user" do
+    assert_difference('User.count', 1) do
+      post api_v1_users_path,
+           params: { user: { email: "test@test.com", password: "123456" } },
+           as: :json
+    end
+    assert_response 201
+  end
 end
