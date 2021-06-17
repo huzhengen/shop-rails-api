@@ -33,7 +33,7 @@ class Api::V1::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    render json: { error_code: 0, message: 'ok' }, status: 204
+    render json: { error_code: 0, message: 'ok' }, status: 200
   end
 
   private
