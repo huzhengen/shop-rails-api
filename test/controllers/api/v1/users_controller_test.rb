@@ -25,4 +25,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response 201
   end
+
+  test "update_success: should update one user" do
+    patch api_v1_user_path(@user),
+          params: { user: { email: '99@qq.com', password: '123456789' } },
+          as: :json
+    assert_response 202
+  end
 end
