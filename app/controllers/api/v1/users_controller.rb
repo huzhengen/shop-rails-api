@@ -2,6 +2,8 @@ class Api::V1::UsersController < ApplicationController
   before_action :set_per_page, only: [:index]
   before_action :set_page, only: [:index]
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :check_admin, only: [:index, :destroy]
+  before_action :check_admin_or_owner, only: [:update]
   # https://stackoverflow.com/questions/30632639/password-cant-be-blank-in-rails-using-has-secure-password
   wrap_parameters :user, include: [:email, :password]
 
@@ -58,6 +60,22 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password)
+  end
+
+  def is_admin?
+    current_user&.role == 0
+  end
+
+  def is_owner?
+    @user.id == current_user&.id
+  end
+
+  def check_admin
+    head 403 unless is_admin?
+  end
+
+  def check_admin_or_owner
+    head 403 unless is_admin? || is_owner?
   end
 
 end
